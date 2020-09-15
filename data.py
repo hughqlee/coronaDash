@@ -26,7 +26,7 @@ conditions = ["confirmed", "deaths", "recovered"]
 
 def make_country_df(country):
     def make_df(condition):
-        df = pd.read_csv("data/time_confirmed.csv")
+        df = pd.read_csv(f"data/time_{condition}.csv")
         df = df.loc[df["Country/Region"] == country]
         df = (
             df.drop(columns=["Province/State", "Country/Region", "Lat", "Long"])
@@ -65,3 +65,8 @@ def make_global_df():
         else:
             final_df = final_df.merge(condition_df)
     return final_df
+
+
+# Dash Core Component - Dropdown
+dropdown_options = country_df.sort_values("Country_Region").reset_index()
+dropdown_options = dropdown_options["Country_Region"]
